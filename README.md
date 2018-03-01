@@ -1,66 +1,112 @@
-# vue-webpack-boilerplate
+# 自定义vue-cli（脚手架）
 
-> A full-featured Webpack setup with hot-reload, lint-on-save, unit testing & css extraction.
+> 根据不同项目的需求，配置不同的初始化脚手架.比如在脚手架init的选项中,添加或删除一些选项，根据选项的不同，加载不同的文件或代码块到项目代码中.
+![](https://github.com/LvJinCheng/vuejs-templates-custom/raw/master/img/demo.jpg)  
 
-> This template is Vue 2.0 compatible. For Vue 1.x use this command: `vue init webpack#1.0 my-project`
+## 准备
+1.github上，fork官方模板（地址：https://github.com/vuejs-templates/webpack ），到自己的github.
+2.将fork到自己库上的模板代码clone到本地文件.`git clone https://github.com/LvJinCheng/webpack.git`
+3.克隆完成，进入文件夹。项目默认的github分支是develop,为了以后操作方便，要切换到自己github上的master分支.`git checkout -b master`
+4.切换之后，为了防止分支之间代码冲突，要重新拉去master分支代码到本地.`git pull origin master`
 
-## Documentation
-
-- [For this template](http://vuejs-templates.github.io/webpack): common questions specific to this template are answered and each part is described in greater detail
-- [For Vue 2.0](http://vuejs.org/guide/): general information about how to work with Vue, not specific to this template
-
-## Usage
-
-This is a project template for [vue-cli](https://github.com/vuejs/vue-cli). **It is recommended to use npm 3+ for a more efficient dependency tree.**
-
-``` bash
-$ npm install -g vue-cli
-$ vue init webpack my-project
-$ cd my-project
-$ npm install
-$ npm run dev
-```
-
-This will scaffold the project using the `master` branch. If you wish to use the latest version of the webpack template, do the following instead:
+## 修改代码
+1.在clone的项目中找到如下文件
+* /meta.js
+* /scenarios/full.json
+* /template/src/main.js
+2.首先修改meta.js，也就是vue-cli初始化时的选项，yes或者no，也可以选择某一项.
 
 ``` bash
-$ vue init webpack#develop my-project
+ prompts: {
+  name: {
+    when: 'isNotTest',
+    type: 'string',
+    required: true,
+    message: 'Project name',
+  },
+     ...
+}
 ```
-
-:warning: **The develop branch is not considered stable and can contain bugs or not build at all, so use at your own risk.**
-
-The development server will run on port 8080 by default. If that port is already in use on your machine, the next free port will be used.
-
-## What's Included
-
-- `npm run dev`: first-in-class development experience.
-  - Webpack + `vue-loader` for single file Vue components.
-  - State preserving hot-reload
-  - State preserving compilation error overlay
-  - Lint-on-save with ESLint
-  - Source maps
-
-- `npm run build`: Production ready build.
-  - JavaScript minified with [UglifyJS v3](https://github.com/mishoo/UglifyJS2/tree/harmony).
-  - HTML minified with [html-minifier](https://github.com/kangax/html-minifier).
-  - CSS across all components extracted into a single file and minified with [cssnano](https://github.com/ben-eb/cssnano).
-  - Static assets compiled with version hashes for efficient long-term caching, and an auto-generated production `index.html` with proper URLs to these generated assets.
-  - Use `npm run build --report`to build with bundle size analytics.
-
-- `npm run unit`: Unit tests run in [JSDOM](https://github.com/tmpvar/jsdom) with [Jest](https://facebook.github.io/jest/), or in PhantomJS with Karma + Mocha + karma-webpack.
-  - Supports ES2015+ in test files.
-  - Easy mocking.
-
-- `npm run e2e`: End-to-end tests with [Nightwatch](http://nightwatchjs.org/).
-  - Run tests in multiple browsers in parallel.
-  - Works with one command out of the box:
-    - Selenium and chromedriver dependencies automatically handled.
-    - Automatically spawns the Selenium server.
-
-### Fork It And Make Your Own
-
-You can fork this repo to create your own boilerplate, and use it with `vue-cli`:
-
+   如果要添加一项："是否是移动端？"，或是多项选择,只需复制name对象到后面，然后进行修改.
 ``` bash
-vue init username/repo my-project
+  prompts: {
+    name: {
+      when: 'isNotTest',
+      type: 'string',
+      required: true,
+      message: 'Project name',
+    },
+    //____________yes or no____________
+    isMobile: {
+      when: 'isNotTest',
+      type: 'string',
+      required: true,
+      message: '是否是移动端？',
+    },
+    //____________多项选择____________
+    doSomething: {
+      when: 'isNotTest',
+      type: 'list',
+      message:
+        '这是一个多项选择',
+      choices: [
+        {
+          name: 'Yes, 我要加载A',
+          value: 'A',
+          short: 'A',
+        },
+        {
+          name: 'Yes, 我要加载B',
+          value: 'B',
+          short: 'B',
+        },
+        {
+          name: 'No, 什么都不做',
+          value: false,
+          short: 'no',
+        },
+      ],
+    },
+     ...
+ }
 ```
+3.找到full.json文件，把刚加的isMobile和doSomething添加进去，分别设置默认值为true和"A".
+``` bash
+ { 
+   "isMobile": true, // 设置默认值
+   "doSomething": 'A' // 设置默认值
+   "noEscape": true,
+   "name": "test",
+   "description": "A Vue.js project",
+   "author": "CircleCI",
+   "build": "runtime",
+   "router": false,
+   "autoInstall": false
+ }
+```
+4.在初始化选择了yes或者是某一项，可以在main.js中根据条件是否执行某些代码判断，使用的是Handlebars.js 模板引擎如:
+``` bash
+{{#isMobile}}
+  import router from './isMobile' //或者是加载模块
+  console.log('这是移动端') //是代码块
+{{/isMobile}}
+
+//多项选择时 匹配选择的值
+{{#if_eq doSomething "A"}}
+  alert('你选择的是A')
+{{/if_eq}}
+
+{{#if_eq doSomething "B"}}
+  alert('你选择的是B')
+{{/if_eq}}
+```
+5.也可以按条件加载某些文件,回到meta.js中找到对象
+``` bash
+filters: {
+  'src/isMobile/*/': 'isMobile' //配置为true是引用到项目中
+  'test/unit/*/': 'unit',
+  'src/router/*/': 'router',
+}
+```
+6.上传代码到github上.
+7.初始化自定义如本项目自定义模板 `vue-cli vue init LvJinCheng/webpack my-project`.
