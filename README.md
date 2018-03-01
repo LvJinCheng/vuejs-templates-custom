@@ -5,20 +5,21 @@
 ![](https://github.com/LvJinCheng/vuejs-templates-custom/raw/master/img/demo.jpg)  
 
 ## 准备
-1.github上，fork官方模板（地址：https://github.com/vuejs-templates/webpack ），到自己的github.
+1.github上,fork官方模板（地址：https://github.com/vuejs-templates/webpack ）,到自己的github.
 
 2.将fork到自己库上的模板代码clone到本地文件.`git clone https://github.com/LvJinCheng/webpack.git`
 
-3.克隆完成，进入文件夹。项目默认的github分支是develop,为了以后操作方便，要切换到自己github上的master分支.`git checkout -b master`
+3.克隆完成,进入文件夹,项目默认的github分支是develop,为了以后操作方便，要切换到自己github上的master分支.`git checkout -b master`
 
-4.切换之后，为了防止分支之间代码冲突，要重新拉去master分支代码到本地.`git pull origin master`
+4.切换之后,为了防止分支之间代码冲突,要重新拉去master分支代码到本地.`git pull origin master`
 
 ## 修改代码
 1.在clone的项目中找到如下文件
 * /meta.js
 * /scenarios/full.json
 * /template/src/main.js
-2.首先修改meta.js，也就是vue-cli初始化时的选项，yes或者no，也可以选择某一项.
+
+2.首先修改meta.js,也就是vue-cli初始化时的选项,yes或者no,也可以选择某一项.
 
 ``` bash
  prompts: {
@@ -31,7 +32,7 @@
      ...
 }
 ```
-   如果要添加一项："是否是移动端？"，或是多项选择,只需复制name对象到后面，然后进行修改.
+   如果要添加一项："是否是移动端？",或是多项选择,只需复制name对象到后面,然后进行修改.
 ``` bash
   prompts: {
     name: {
@@ -74,7 +75,7 @@
      ...
  }
 ```
-3.找到full.json文件，把刚加的isMobile和doSomething添加进去，分别设置默认值为true和"A".
+3.找到full.json文件,把刚加的isMobile和doSomething添加进去,分别设置默认值为true和"A".
 ``` bash
  { 
    "isMobile": true, // 设置默认值
@@ -88,7 +89,7 @@
    "autoInstall": false
  }
 ```
-4.在初始化选择了yes或者是某一项，可以在main.js中根据条件是否执行某些代码判断，使用的是Handlebars.js 模板引擎如:
+4.在初始化选择了yes或者是某一项,可以在main.js中根据条件是否执行某些代码判断,使用的是Handlebars.js 模板引擎如:
 ``` bash
 {{#isMobile}}
   import router from './isMobile' //或者是加载模块
