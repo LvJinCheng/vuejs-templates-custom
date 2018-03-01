@@ -1,12 +1,16 @@
 # 自定义vue-cli（脚手架）
 
 > 根据不同项目的需求，配置不同的初始化脚手架.比如在脚手架init的选项中,添加或删除一些选项，根据选项的不同，加载不同的文件或代码块到项目代码中.
+
 ![](https://github.com/LvJinCheng/vuejs-templates-custom/raw/master/img/demo.jpg)  
 
 ## 准备
 1.github上，fork官方模板（地址：https://github.com/vuejs-templates/webpack ），到自己的github.
+
 2.将fork到自己库上的模板代码clone到本地文件.`git clone https://github.com/LvJinCheng/webpack.git`
+
 3.克隆完成，进入文件夹。项目默认的github分支是develop,为了以后操作方便，要切换到自己github上的master分支.`git checkout -b master`
+
 4.切换之后，为了防止分支之间代码冲突，要重新拉去master分支代码到本地.`git pull origin master`
 
 ## 修改代码
