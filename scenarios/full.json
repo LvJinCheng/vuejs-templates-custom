@@ -5,10 +5,7 @@
   "author": "CircleCI",
   "build": "runtime",
   "router": false,
-  "lint": true,
-  "lintConfig": "standard",
-  "unit": true,
-  "runner": "jest",
-  "e2e": true,
+  "doSomething": true,
+  "setting": "none",
   "autoInstall": false
 }
