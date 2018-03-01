@@ -60,7 +60,7 @@ module.exports = {
     doSomething: {
       when: 'isNotTest',
       type: 'confirm',
-      message: '是否要安装vue-router?',
+      message: '做点什么?',
     },
     setting: {
       when: 'isNotTest',
