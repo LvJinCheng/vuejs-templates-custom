@@ -114,5 +114,7 @@ filters: {
 }
 ```
 6.上传代码到github上.
+
 7.初始化自定义如本项目自定义模板 `vue-cli vue init LvJinCheng/webpack my-project`.
+
 另一种方法：http://www.jb51.net/article/114410.htm
